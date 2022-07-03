@@ -6,6 +6,25 @@
 *.lo
 *.o
 *.obj
+main
+*~
+*.log*
+log_*
+*.err
+err_*
+*.pdf
+*.csv
+.DS_STORE
+*.DS_Store*
+*.o
+*.obj
+*.exe
+*.out
+*.app
+.DS_Store
+.txt
+.env
+.vscode
 
 # Precompiled Headers
 *.gch
