@@ -6,19 +6,21 @@
 #include <vector>
 
 class Object {
-private:    
+protected:    
     int speed;
     float size;
+    bool controls;
     sf::CircleShape some_shape;
     sf::Vector2f start_position;
     sf::Vector2f current_position;
     sf::Color color;
 
 public:
-    Object(int, sf::Vector2f);
-    ~Object();
-    void move(float);
-    void draw(sf::RenderWindow&);
+    Object(int, bool, sf::Color, sf::Vector2f);
+    Object(int, bool, sf::Vector2f);
+    virtual ~Object();
+    virtual void update(float);
+    virtual void draw(sf::RenderWindow&);
 };
 
 #endif
