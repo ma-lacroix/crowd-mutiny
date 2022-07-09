@@ -1,24 +1,38 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <ctime>
 #include <vector>
 #include "object.hpp"
 #include "giant.hpp"
 
-
 const float SCREEN_WIDTH {1500.0f};
 const float SCREEN_HEIGHT {1500.0f};
-enum GAME_STATUS {STARTMENU,MAIN,PAUSE}; // NOT USED YET
+enum class GAME_STATUS {STARTMENU,MAIN,PAUSE};
 
 
-std::vector<Object*> genObjects() {
-    std::vector<Object*> objects;
-    Object* circle = new Object(0,true, sf::Color::Blue, sf::Vector2f(100.0f,200.0f));
-    objects.push_back(circle);
-    Object* diamond = new Object(4,false, sf::Color::Red,sf::Vector2f(500.0f,500.0f));
-    objects.push_back(diamond);
-    Object* triangle = new Giant(3,true, sf::Vector2f(500.0f,200.0f));
-    objects.push_back(triangle);
-    return objects;
+void genObjects(int max_random, std::vector<Object*> &objects, int num_circles, int num_diamonds, int num_triangles) {
+    srand(static_cast<unsigned int>(std::time(nullptr))); 
+    for (int i = 0;i < num_circles;++i ) {
+        float rand1 = rand() % max_random;
+        float rand2 = rand() % max_random;
+        objects.push_back(new Object(0, sf::Color::Blue, sf::Vector2f(rand1,rand2)));
+    }
+    for (int i = 0;i < num_triangles;++i ) {
+        float rand1 = rand() % max_random;
+        float rand2 = rand() % max_random;
+        objects.push_back(new Object(3, sf::Color::Red, sf::Vector2f(rand1,rand2)));
+    }
+    for (int i = 0;i < num_diamonds;++i ) {
+        float rand1 = rand() % max_random;
+        float rand2 = rand() % max_random;
+        objects.push_back(new Object(4, sf::Color::Black, sf::Vector2f(rand1,rand2)));
+    }
+}
+
+void randomPlayerSelect(std::vector<Object*> &objects) {
+    srand(static_cast<unsigned int>(std::time(nullptr))); 
+    int max_rand = objects.size()-1;
+    objects.at(rand() % max_rand)->switchPlayer();
 }
 
 
@@ -37,12 +51,15 @@ int main() {
                             "Crowd Mutiny",sf::Style::Titlebar | sf::Style::Resize);
     sf::View view(screen_size/2.0f,screen_size);
 
-    // initialising on-screen stuff
-    std::vector<Object*> objects = genObjects();
-
+    // initialising game objects
+    std::vector<Object*> objects;
+    genObjects(static_cast<int>(SCREEN_WIDTH*0.8f),objects,3,2,4);
+    randomPlayerSelect(objects);
+    
+    GAME_STATUS game_status = GAME_STATUS::MAIN; // TODO: unused variable
 
     while(window.isOpen()) {
-        
+
         deltaTime = clock.restart().asSeconds();
 
         sf::Event event;

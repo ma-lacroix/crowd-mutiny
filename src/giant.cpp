@@ -1,12 +1,12 @@
 #include "giant.hpp"
 
 
-Giant::Giant(int object_type, bool is_control, sf::Vector2f start_position)
-        :Object(object_type, is_control, start_position) {
+Giant::Giant(int object_type, sf::Vector2f start_position)
+        :Object(object_type, start_position) {
     std::cout << "giant constructor called" << std::endl;
     this->speed = 500.0f;
     this->size = 500.0f;
-    this->controls = is_control;
+    this->controls = false;
     this->start_position = start_position;
     this->red = 100;
     this->green = 100;

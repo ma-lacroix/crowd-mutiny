@@ -16,9 +16,10 @@ protected:
     sf::Color color;
 
 public:
-    Object(int, bool, sf::Color, sf::Vector2f);
-    Object(int, bool, sf::Vector2f);
+    Object(int, sf::Color, sf::Vector2f);
+    Object(int, sf::Vector2f);
     virtual ~Object();
+    virtual void switchPlayer();
     virtual void update(float);
     virtual void draw(sf::RenderWindow&);
 };
