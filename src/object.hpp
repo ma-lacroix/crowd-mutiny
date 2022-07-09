@@ -22,6 +22,7 @@ public:
     virtual ~Object();
     virtual void switchPlayer();
     virtual void update(float, float);
+    virtual sf::Vector2f getPosition();
     virtual void draw(sf::RenderWindow&);
 };
 

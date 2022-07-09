@@ -3,7 +3,7 @@
 
 Object::Object(int object_type, sf::Color some_color, sf::Vector2f start_position){
     std::cout << "object constructor called" << std::endl;
-    this->speed = rand() % 500;
+    this->speed = rand() % 500 + 50;
     this->size = 50.0f;
     this->controls = false;
     this->start_position = start_position;
@@ -54,6 +54,10 @@ void Object::update(float deltatime, float totalTime) {
         some_shape.move(sf::Vector2f(-std::sinf(speed*totalTime/10.0f)/5.0f, std::cosf(speed*totalTime/10.0f)/5.0f));
     }
     
+}
+
+sf::Vector2f Object::getPosition(){
+    return some_shape.getPosition();
 }
 
 void Object::draw(sf::RenderWindow& window) {

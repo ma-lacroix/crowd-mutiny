@@ -29,10 +29,15 @@ void genObjects(int max_random, std::vector<Object*> &objects, int num_circles, 
     }
 }
 
-void randomPlayerSelect(std::vector<Object*> &objects) {
+void randomPlayerSelect(int rand_pick, std::vector<Object*> &objects) {
+    objects.at(rand_pick)->switchPlayer();
+}
+
+int randomPlayerPick(std::vector<Object*> &objects){
     srand(static_cast<unsigned int>(std::time(nullptr))); 
-    int max_rand = objects.size()-1;
-    objects.at(rand() % max_rand)->switchPlayer();
+    int rand_pick = rand() % (objects.size()-1);
+    randomPlayerSelect(rand_pick, objects);
+    return rand_pick;
 }
 
 
@@ -52,14 +57,19 @@ int main() {
     sf::View view(screen_size/2.0f,screen_size);
 
     // initialising game objects
+    int num_circles = rand() % 50, 
+    num_diamonds = rand() % 50, 
+    num_triangles = rand() % 50;
     std::vector<Object*> objects;
-    genObjects(static_cast<int>(SCREEN_WIDTH*0.8f),objects,5,3,6);
-    randomPlayerSelect(objects);
+    genObjects(static_cast<int>(SCREEN_WIDTH*1.2f),objects,num_circles,num_diamonds,num_triangles);
+    int rand_pick = randomPlayerPick(objects);
+    Giant* background = new Giant(4,sf::Vector2f(500.0f,500.0f));
     
     GAME_STATUS game_status = GAME_STATUS::MAIN; // TODO: unused variable
 
     while(window.isOpen()) {
-
+        view.setCenter(objects.at(rand_pick)->getPosition());
+        window.setView(view);
         deltaTime = clock.restart().asSeconds();
         totalTime+=deltaTime;
 
@@ -82,9 +92,11 @@ int main() {
         for(auto obj: objects){
             obj->update(deltaTime,totalTime);
         }
+        background->update(deltaTime,totalTime);
         
         // drawing stuff onscreen
-        window.clear(sf::Color(255,255,200));
+        window.clear(sf::Color(255,255,180));
+        background->draw(window);
         for(auto obj: objects){
             obj->draw(window);
         }
