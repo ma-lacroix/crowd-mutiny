@@ -1,6 +1,7 @@
 #ifndef _OBJECT_H_
 #define _OBJECT_H_
 
+#include <cmath>
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -20,7 +21,7 @@ public:
     Object(int, sf::Vector2f);
     virtual ~Object();
     virtual void switchPlayer();
-    virtual void update(float);
+    virtual void update(float, float);
     virtual void draw(sf::RenderWindow&);
 };
 

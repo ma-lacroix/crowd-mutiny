@@ -53,7 +53,7 @@ int main() {
 
     // initialising game objects
     std::vector<Object*> objects;
-    genObjects(static_cast<int>(SCREEN_WIDTH*0.8f),objects,3,2,4);
+    genObjects(static_cast<int>(SCREEN_WIDTH*0.8f),objects,5,3,6);
     randomPlayerSelect(objects);
     
     GAME_STATUS game_status = GAME_STATUS::MAIN; // TODO: unused variable
@@ -61,6 +61,7 @@ int main() {
     while(window.isOpen()) {
 
         deltaTime = clock.restart().asSeconds();
+        totalTime+=deltaTime;
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -79,7 +80,7 @@ int main() {
         }
         // objects update
         for(auto obj: objects){
-            obj->update(deltaTime);
+            obj->update(deltaTime,totalTime);
         }
         
         // drawing stuff onscreen

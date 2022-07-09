@@ -1,4 +1,5 @@
 #include "object.hpp"
+#define PI 3.14159265
 
 Object::Object(int object_type, sf::Color some_color, sf::Vector2f start_position){
     std::cout << "object constructor called" << std::endl;
@@ -32,9 +33,10 @@ Object::~Object() {
 
 void Object::switchPlayer() {
     controls = true;
+    some_shape.setFillColor(sf::Color(100,100,100));
 }
 
-void Object::update(float deltatime) {
+void Object::update(float deltatime, float totalTime) {
     if(controls){
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)){
             some_shape.move(sf::Vector2f(0.0f,-deltatime*speed));
@@ -49,9 +51,7 @@ void Object::update(float deltatime) {
             some_shape.move(sf::Vector2f(deltatime*speed,0.0f));
         }
     }else{
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
-            some_shape.move(sf::Vector2f(0.0f,deltatime*speed));
-        }
+        some_shape.move(sf::Vector2f(-std::sinf(speed*totalTime/10.0f)/5.0f, std::cosf(speed*totalTime/10.0f)/5.0f));
     }
     
 }

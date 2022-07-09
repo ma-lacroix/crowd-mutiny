@@ -24,7 +24,7 @@ void Giant::change_color() {
     some_shape.setFillColor(sf::Color(red,green,blue));
 }
 
-void Giant::update(float deltatime) {
+void Giant::update(float deltatime, float totalTime) {
 
     change_color();
 

@@ -16,7 +16,7 @@ private:
 public:
     Giant(int, sf::Vector2f);
     ~Giant();
-    void update(float) override;
+    void update(float,float) override;
     void change_color();
 };
 
