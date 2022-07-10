@@ -1,11 +1,12 @@
 #include "giant.hpp"
 
 
-Giant::Giant(int object_type, sf::Vector2f start_position)
-        :Object(object_type, start_position) {
+Giant::Giant(int object_type, sf::Color object_color, sf::Vector2f start_position)
+        :Object(object_type, object_color, start_position) {
     std::cout << "giant constructor called" << std::endl;
     this->speed = 500.0f;
-    this->size = 500.0f;
+    this->color = object_color;
+    this->size = 500.0f;    
     this->controls = false;
     this->start_position = start_position;
     this->red = 200;
@@ -25,7 +26,7 @@ void Giant::change_color() {
     some_shape.setFillColor(sf::Color(red,green,blue));
 }
 
-void Giant::update(float deltatime, float totalTime) {
+void Giant::update(float deltatime, float totalTime, sf::Vector2f player_position) {
 
     change_color();
 
@@ -33,19 +34,15 @@ void Giant::update(float deltatime, float totalTime) {
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)){
             if (red < 255) {red+=1;};
-            // some_shape.move(sf::Vector2f(0.0f,-deltatime*speed));
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)){
             if (red > 0) {red-=1;};
-            // some_shape.move(sf::Vector2f(0.0f,deltatime*speed));
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)){
             if (blue > 0) {blue-=1;};
-            // some_shape.move(sf::Vector2f(-deltatime*speed,0.0f));
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)){
             if (blue < 255) {blue+=1;};
-            // some_shape.move(sf::Vector2f(deltatime*speed,0.0f));
         }
     }
 }
