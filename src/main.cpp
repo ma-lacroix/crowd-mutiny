@@ -4,6 +4,7 @@
 #include <vector>
 #include "object.hpp"
 #include "giant.hpp"
+#include "small.hpp"
 
 const float SCREEN_WIDTH {1500.0f};
 const float SCREEN_HEIGHT {1500.0f};
@@ -29,11 +30,11 @@ void genObjects(int max_random, std::vector<T*> &objects, int num_circles, int n
     }
 }
 
-void randomPlayerSelect(int rand_pick, std::vector<Object*> &objects) {
+void randomPlayerSelect(int rand_pick, std::vector<Small*> &objects) {
     objects.at(rand_pick)->switchPlayer();
 }
 
-int randomPlayerPick(std::vector<Object*> &objects){
+int randomPlayerPick(std::vector<Small*> &objects){
     srand(static_cast<unsigned int>(std::time(nullptr))); 
     int rand_pick = rand() % (objects.size()-1);
     randomPlayerSelect(rand_pick, objects);
@@ -60,7 +61,7 @@ int main() {
     int num_circles = rand() % 50, 
     num_diamonds = rand() % 50, 
     num_triangles = rand() % 50;
-    std::vector<Object*> objects;
+    std::vector<Small*> objects;
     std::vector<Giant*> backgrounds;
     genObjects(static_cast<int>(SCREEN_WIDTH*1.2f),objects,num_circles,num_diamonds,num_triangles);
     genObjects(static_cast<int>(SCREEN_WIDTH*1.5f),backgrounds,0,5,0);
@@ -85,14 +86,17 @@ int main() {
             // Escape pressed: exit
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
                 for(auto obj: objects){
-                    obj->~Object();
+                    obj->~Small();
+                }
+                for(auto back: backgrounds){
+                    back->~Giant();
                 }
                 window.close();
             }
         }
         // objects update
         for(auto back: backgrounds){
-            back->update(deltaTime,totalTime,player_center);
+            back->update(deltaTime,totalTime);
         }
         for(auto obj: objects){
             obj->update(deltaTime,totalTime,player_center);
