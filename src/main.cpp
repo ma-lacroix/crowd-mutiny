@@ -58,13 +58,13 @@ int main() {
     sf::View view(screen_size/2.0f,screen_size);
 
     // initialising game objects
-    int num_circles = rand() % 50, 
-    num_diamonds = rand() % 50, 
-    num_triangles = rand() % 50;
+    int num_circles = rand() % 500, 
+    num_diamonds = rand() % 500, 
+    num_triangles = rand() % 500;
     std::vector<Small*> objects;
     std::vector<Giant*> backgrounds;
     genObjects(static_cast<int>(SCREEN_WIDTH*1.2f),objects,num_circles,num_diamonds,num_triangles);
-    genObjects(static_cast<int>(SCREEN_WIDTH*1.5f),backgrounds,0,5,0);
+    genObjects(static_cast<int>(SCREEN_WIDTH*1.5f),backgrounds,5,5,5);
     int rand_pick = randomPlayerPick(objects);
 
     GAME_STATUS game_status = GAME_STATUS::MAIN; // TODO: unused variable
@@ -92,6 +92,12 @@ int main() {
                     back->~Giant();
                 }
                 window.close();
+            }
+            // Space pressed: change dynamic
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+                for(auto obj: objects){
+                    obj->switchAttraction();
+                }
             }
         }
         // objects update

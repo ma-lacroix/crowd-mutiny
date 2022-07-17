@@ -3,7 +3,6 @@
 
 Giant::Giant(int object_type, sf::Color object_color, sf::Vector2f start_position)
         :Object(object_type, object_color, start_position) {
-    std::cout << "giant constructor called" << std::endl;
     this->speed = 500.0f;
     this->color = object_color;
     this->size = 500.0f;    
@@ -19,7 +18,6 @@ Giant::Giant(int object_type, sf::Color object_color, sf::Vector2f start_positio
 }
 
 Giant::~Giant() {
-    std::cout << "Giant destroyed" << std::endl;
 }
 
 void Giant::change_color() {

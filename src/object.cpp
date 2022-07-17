@@ -2,7 +2,6 @@
 #define PI 3.14159265
 
 Object::Object(int object_type, sf::Color some_color, sf::Vector2f start_position){
-    std::cout << "object constructor called" << std::endl;
     this->speed = rand() % 500 + 50;
     this->size = 50.0f;
     this->controls = false;
@@ -15,15 +14,12 @@ Object::Object(int object_type, sf::Color some_color, sf::Vector2f start_positio
 }
 
 Object::~Object() {
-    std::cout << "Object destroyed" << std::endl;
 }
 
 void Object::update(float deltatime, float totalTime) {
-    
 }
 
 void Object::update(float deltatime, float totalTime, sf::Vector2f player_position) {
-    
 }
 
 sf::Vector2f Object::getPosition(){
