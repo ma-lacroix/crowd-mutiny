@@ -69,6 +69,8 @@ int main() {
 
     GAME_STATUS game_status = GAME_STATUS::MAIN; // TODO: unused variable
 
+    sf::Color screen_colors(255,255,180);
+
     while(window.isOpen()) {
         sf::Vector2f player_center = objects.at(rand_pick)->getPosition();
         view.setCenter(player_center);
@@ -98,6 +100,7 @@ int main() {
                 for(auto obj: objects){
                     obj->switchAttraction();
                 }
+                screen_colors = (screen_colors == sf::Color(200,200,180)) ? sf::Color(255,255,180) : sf::Color(200,200,180);
             }
         }
         // objects update
@@ -109,7 +112,7 @@ int main() {
         }
         
         // drawing stuff onscreen
-        window.clear(sf::Color(255,255,180));
+        window.clear(screen_colors);
         for(auto back: backgrounds){
             back->draw(window);
         }

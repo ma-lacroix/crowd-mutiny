@@ -9,7 +9,6 @@
 
 class Giant : public Object {
 private:    
-    float shake;
     int red;
     int green;
     int blue;

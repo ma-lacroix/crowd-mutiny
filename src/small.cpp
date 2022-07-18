@@ -6,8 +6,8 @@ Small::Small(int object_type, sf::Color some_color, sf::Vector2f start_position)
             :Object(object_type, some_color, start_position) {
     this->speed = rand() % 500 + 50;
     this->left_right = (speed % 2 == 0) ? -1 : 1;
-    this->size = 50.0f;
-    this->sensitivity = 1000.0f/(rand() % 5);
+    this->size = 50.0f*rand()/RAND_MAX;
+    this->sensitivity = 500.0f*rand()/RAND_MAX;
     this->controls = false;
     this->attraction = false;
     this->start_position = start_position;
@@ -58,7 +58,7 @@ sf::Vector2f Small::pushBack(sf::Vector2f player_position) {
             b *= -1;
         }
     }
-    return sf::Vector2f(a*speed,b*speed);
+    return sf::Vector2f(a*speed*rand()/RAND_MAX,b*speed*rand()/RAND_MAX);
 }
 
 void Small::update(float deltatime, float totalTime, sf::Vector2f player_position) {

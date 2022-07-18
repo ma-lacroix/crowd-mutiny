@@ -4,14 +4,10 @@
 Giant::Giant(int object_type, sf::Color object_color, sf::Vector2f start_position)
         :Object(object_type, object_color, start_position) {
     this->speed = 500.0f;
-    this->color = object_color;
     this->size = 500.0f;    
-    this->controls = false;
-    this->start_position = start_position;
     this->red = 200;
     this->green = 200;
     this->blue = 200;
-    this->current_position = start_position;
     this->some_shape = (object_type < 3) ? sf::CircleShape(size) : sf::CircleShape(size,object_type);
     some_shape.setPosition(current_position);
     some_shape.setFillColor(sf::Color(red,green,blue));
