@@ -25,7 +25,7 @@ void Small::switchPlayer() {
     std::cout << "Switch player function called" << "\n";
     controls = true;
     speed = 500.0f;
-    some_shape.setFillColor(sf::Color(100,100,100));
+    some_shape.setFillColor(sf::Color(255,0,0));
 }
 
 void Small::switchAttraction() {

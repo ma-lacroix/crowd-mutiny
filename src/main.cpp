@@ -5,6 +5,7 @@
 #include "object.hpp"
 #include "giant.hpp"
 #include "small.hpp"
+#include "hud.hpp"
 
 const float SCREEN_WIDTH {1500.0f};
 const float SCREEN_HEIGHT {1500.0f};
@@ -21,7 +22,7 @@ void genObjects(int max_random, std::vector<T*> &objects, int num_circles, int n
     for (int i = 0;i < num_triangles;++i ) {
         float rand1 = rand() % max_random;
         float rand2 = rand() % max_random;
-        objects.push_back(new T(3, sf::Color::Red, sf::Vector2f(rand1,rand2)));
+        objects.push_back(new T(3, sf::Color::Green, sf::Vector2f(rand1,rand2)));
     }
     for (int i = 0;i < num_diamonds;++i ) {
         float rand1 = rand() % max_random;
@@ -56,6 +57,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(screen_size.x,screen_size.y),
                             "Crowd Mutiny",sf::Style::Titlebar | sf::Style::Resize);
     sf::View view(screen_size/2.0f,screen_size);
+    sf::View hudView(screen_size/2.0f,screen_size);
 
     // initialising game objects
     int num_circles = rand() % 500, 
@@ -66,6 +68,9 @@ int main() {
     genObjects(static_cast<int>(SCREEN_WIDTH*1.2f),objects,num_circles,num_diamonds,num_triangles);
     genObjects(static_cast<int>(SCREEN_WIDTH*1.5f),backgrounds,5,5,5);
     int rand_pick = randomPlayerPick(objects);
+
+    // initialising hud
+    Hud* hud = new Hud(sf::Vector2f(SCREEN_WIDTH*0.7,SCREEN_WIDTH*0.03),"Repulsion","Attraction");
 
     GAME_STATUS game_status = GAME_STATUS::MAIN; // TODO: unused variable
 
@@ -100,6 +105,7 @@ int main() {
                 for(auto obj: objects){
                     obj->switchAttraction();
                 }
+                hud->switchMsg();
                 screen_colors = (screen_colors == sf::Color(200,200,180)) ? sf::Color(255,255,180) : sf::Color(200,200,180);
             }
         }
@@ -119,6 +125,9 @@ int main() {
         for(auto obj: objects){
             obj->draw(window);
         }
+        window.setView(hudView);
+        hud->draw(window);
+
         window.display();
 
     }
